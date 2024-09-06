@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">SampleChatApp</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="next">Next</string>
+    <string name="choose_country">Choose Country</string>
+    <string name="profile">Profile Info</string>
+    <string name="username">Username</string>
+    <string name="phone">Phone</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="city">City</string>
+    <string name="about">About</string>
+    <string name="conversations">Conversations</string>
+    <string name="catalog">catalog</string>
+    <string name="chat">Chat</string>
+    <string name="logout">Logout</string>
+    <string name="save">Save</string>
+    <string name="you">You</string>
+    <string name="registration">Registration</string>
+    <string name="name">Name</string>
+    <string name="register">Register</string>
+    <string name="verification_code_screen">Verification Code Screen</string>
+    <string name="verify_code">Verify code</string>
+    <string name="enter_your_message">Enter your message</string>
+</resources>
