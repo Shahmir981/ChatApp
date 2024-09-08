@@ -29,24 +29,22 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.test.samplechatapp.R
 import com.test.samplechatapp.presentation.MainViewModel
+import com.test.samplechatapp.presentation.ui.components.navigation.ScreenType
 import com.test.samplechatapp.presentation.ui.components.utils.ChatButton
 import com.test.samplechatapp.presentation.ui.components.utils.ChatsAppBar
 import com.test.samplechatapp.presentation.ui.components.utils.ErrorScreen
 import com.test.samplechatapp.presentation.ui.components.utils.LoadingScreen
-import com.test.samplechatapp.presentation.ui.components.navigation.ScreenType
 import com.test.samplechatapp.presentation.ui.theme.Black70
 import com.test.samplechatapp.presentation.ui.theme.LightGray
 import com.test.samplechatapp.presentation.ui.theme.Withe50
 
-
 @Composable
 fun SmsCodeScreen(
-    mainViewModel: MainViewModel = hiltViewModel(),
     viewModel: SmsVerificationCodeViewModel = hiltViewModel(),
+    mainViewModel: MainViewModel,
     navController: NavHostController,
     paddingValues: PaddingValues,
     phoneNumber: String
@@ -60,7 +58,7 @@ fun SmsCodeScreen(
         effectFlow.collect { effect ->
             when (effect) {
                 is VerificationCodeEffect.NavigateToChatList -> {
-                    navController.navigate(ScreenType.ChatListScreen.route)
+                    mainViewModel.updateStartDestination(ScreenType.ChatsGraph.route)
                 }
                 is VerificationCodeEffect.NavigateToRegistration -> {
                     navController.navigate(ScreenType.RegistrationScreen.createRoute(effect.phoneNumber)) {
@@ -161,14 +159,4 @@ fun OtpInputSection(
         ChatButton(text = stringResource(R.string.verify_code), onClick = onVerifyCodeClick)
     }
 }
-
-//fun NavHostController.navigateSingleTopToAndRetainState(route: String) = this.navigate(route) {
-//    popUpTo(
-//
-//    ) {
-//        saveState = false
-//    }
-//    launchSingleTop = true
-//    restoreState = true
-//}
 

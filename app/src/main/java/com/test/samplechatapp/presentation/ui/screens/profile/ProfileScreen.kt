@@ -30,6 +30,7 @@ import com.test.samplechatapp.R
 import com.test.samplechatapp.domain.model.AvatarModel
 import com.test.samplechatapp.domain.model.UpdateProfileModel
 import com.test.samplechatapp.domain.model.ProfileModel
+import com.test.samplechatapp.presentation.MainViewModel
 import com.test.samplechatapp.presentation.ui.components.utils.ChatButton
 import com.test.samplechatapp.presentation.ui.components.utils.ChatsAppBar
 import com.test.samplechatapp.presentation.ui.components.utils.CoilImage
@@ -43,6 +44,7 @@ import com.test.samplechatapp.presentation.ui.theme.Withe50
 
 @Composable
 fun ProfileScreen(
+    mainViewModel: MainViewModel,
     viewModel: ProfileViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
@@ -61,9 +63,22 @@ fun ProfileScreen(
     LaunchedEffect(effectFlow) {
         effectFlow.collect { effect ->
             when (effect) {
-                is ProfileEffect.NavigateToPhoneNumberScreen -> navController.navigate(ScreenType.PhoneNumberScreen.route) { popUpTo(0) }
-                is ProfileEffect.ShowErrorMessage -> Toast.makeText(context, effect.message, Toast.LENGTH_SHORT).show()
-                is ProfileEffect.ProfileUpdated -> Toast.makeText(context, "Profile updated", Toast.LENGTH_SHORT).show()
+                is ProfileEffect.NavigateToPhoneNumberScreen -> mainViewModel.updateStartDestination(
+                    ScreenType.LoginGraph.route
+                )
+
+                is ProfileEffect.ShowErrorMessage -> Toast.makeText(
+                    context,
+                    effect.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                is ProfileEffect.ProfileUpdated -> Toast.makeText(
+                    context,
+                    "Profile updated",
+                    Toast.LENGTH_SHORT
+                ).show()
+
                 is ProfileEffect.NavigateBack -> navController.popBackStack()
             }
         }

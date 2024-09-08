@@ -16,8 +16,6 @@ import com.test.samplechatapp.presentation.ui.components.scafford.Root
 @Composable
 fun App(viewModel: MainViewModel = hiltViewModel()) {
 
-    val startDestination = viewModel.startDestination.collectAsState().value
-
     val navController = rememberNavController()
 
     Surface(
@@ -26,9 +24,10 @@ fun App(viewModel: MainViewModel = hiltViewModel()) {
     ) {
         Root(navController = navController) { paddingValues ->
             MainNavHost(
+                mainViewModel = viewModel,
                 navController = navController,
                 paddingValues = paddingValues,
-                startDestination = startDestination
+                startDestination = viewModel.startDestination.collectAsState().value
             )
         }
     }

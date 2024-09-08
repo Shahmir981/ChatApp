@@ -28,8 +28,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import com.test.samplechatapp.R
+import com.test.samplechatapp.presentation.MainViewModel
+import com.test.samplechatapp.presentation.ui.components.navigation.ScreenType
 import com.test.samplechatapp.presentation.ui.components.utils.ChatButton
 import com.test.samplechatapp.presentation.ui.components.utils.ChatsAppBar
 import com.test.samplechatapp.presentation.ui.components.utils.ErrorScreen
@@ -41,7 +42,7 @@ import com.test.samplechatapp.presentation.ui.theme.Withe50
 @Composable
 fun RegistrationScreen(
     viewModel: RegistrationViewModel = hiltViewModel(),
-    navController: NavHostController,
+    mainViewModel: MainViewModel,
     paddingValues: PaddingValues,
     phoneNumber: String
 ) {
@@ -53,7 +54,7 @@ fun RegistrationScreen(
         effectFlow.collect { effect ->
             when (effect) {
                 is RegistrationEffect.NavigateToChatList -> {
-//                    navController.navigateSingleTopToAndRetainState(ScreenType.ChatListScreen.route)
+                    mainViewModel.updateStartDestination(ScreenType.ChatsGraph.route)
                 }
                 is RegistrationEffect.ShowError -> {
                     Toast.makeText(context, effect.message, Toast.LENGTH_LONG).show()

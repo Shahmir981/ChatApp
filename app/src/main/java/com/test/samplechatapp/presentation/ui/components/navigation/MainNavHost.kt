@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import com.test.samplechatapp.presentation.MainViewModel
 import com.test.samplechatapp.presentation.ui.screens.chatList.ChatListScreen
 import com.test.samplechatapp.presentation.ui.screens.chat.ChatScreen
 import com.test.samplechatapp.presentation.ui.screens.profile.ProfileScreen
@@ -15,6 +16,7 @@ import com.test.samplechatapp.presentation.ui.screens.verificationCode.SmsCodeSc
 
 @Composable
 fun MainNavHost(
+    mainViewModel: MainViewModel,
     navController: NavHostController,
     paddingValues: PaddingValues,
     startDestination: String
@@ -32,6 +34,7 @@ fun MainNavHost(
             }
             composable(ScreenType.SmsCodeScreen.route) { backStackEntry ->
                 SmsCodeScreen(
+                    mainViewModel = mainViewModel,
                     navController = navController,
                     paddingValues = paddingValues,
                     phoneNumber = backStackEntry.arguments?.getString("phone") ?: ""
@@ -39,7 +42,7 @@ fun MainNavHost(
             }
             composable(ScreenType.RegistrationScreen.route) { backStackEntry ->
                 RegistrationScreen(
-                    navController = navController,
+                    mainViewModel = mainViewModel,
                     paddingValues = paddingValues,
                     phoneNumber = backStackEntry.arguments?.getString("phone") ?: ""
                 )
@@ -64,7 +67,7 @@ fun MainNavHost(
             route = ScreenType.ProfileGraph.route
         ) {
             composable(ScreenType.ProfileScreen.route) {
-                ProfileScreen(navController = navController)
+                ProfileScreen(mainViewModel = mainViewModel, navController = navController)
             }
             composable(ScreenType.EditProfileScreen.route) {
             }

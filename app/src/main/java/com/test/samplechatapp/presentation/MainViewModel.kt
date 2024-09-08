@@ -23,7 +23,7 @@ class MainViewModel @Inject constructor(tokenProvider: TokenProvider) : ViewMode
         updateStartDestination(screen.route)
     }
 
-    private fun updateStartDestination(value: String) {
+    fun updateStartDestination(value: String) {
         _startDestination.value = value
     }
 }
